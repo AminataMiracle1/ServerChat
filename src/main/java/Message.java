@@ -9,7 +9,6 @@ public class Message {
     private String userName ;
     private String dateMessage ;
     private StringBuilder unMessage = new StringBuilder() ;
-    private ArrayList<String> listeMessages = new ArrayList<String>() ;
     public String getDateMessage() {
         return dateMessage;
     }
@@ -41,32 +40,15 @@ public class Message {
     }
     public Message() {}
 
-    public ArrayList<String> getListeMessages() {
-        return listeMessages ;
-    }
-    public void setListeMessages(ArrayList<String> listeMessages) {
-        this.listeMessages = listeMessages;
-    }
+
 
 
     // Méthode pour écrire dans la listes de messages du client.
     public void ecrireUnMessage(String message) {
-        listeMessages.add(message);
+        unMessage.append(message) ;
     }
 
-    // Enregistrer les message de  cet objet
-    public void sauvegarderMessage(String fichier){
-        // Écriture vers un fichier un message
-        try {
-            Gson gson = new Gson();
-            String json = gson.toJson(listeMessages, ArrayList.class);
-            FileWriter fileWriter = new FileWriter(fichier);
-            fileWriter.write(gson.toJson(json));
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
 
 
