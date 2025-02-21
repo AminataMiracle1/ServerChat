@@ -73,11 +73,18 @@ public class Server {
         }
     }
 
-    public static int staticMessage() {
-        return listeMessages.size();
+    // Désérialisation
+    public static void lireFichier() {
+        try {
+            Gson gson = new Gson();
+            BufferedReader br = new BufferedReader(new FileReader(FICHIER));
+            etudiantsRecuperes = gson.fromJson(br, Etudiant[].class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    // historique des messages
+    // C'est le log des messages
     public static ArrayList<Message> getListeMessages() {
         return listeMessages;
     }
