@@ -47,6 +47,9 @@ public class Message {
     public void ecrireUnMessage(String message) {
         unMessage.append(message) ;
     }
+    public String toString() {
+        return "Message: " + unMessage.toString() + " User: " + userName ;
+    }
 
 
 
