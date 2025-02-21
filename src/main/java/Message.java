@@ -48,7 +48,7 @@ public class Message {
         unMessage.append(message) ;
     }
     public String toString() {
-        return "Message: " + unMessage.toString() + " User: " + userName ;
+        return  " User: " + userName + " Message: " + unMessage.toString() ;
     }
 
 

@@ -28,27 +28,29 @@ public class Server {
                 String ligne;
 
                 socketOut.println("Bienvenue sur chat");
+
                 socketOut.println("Entrer votre user name");
-
+                String username = socketIn.readLine();
+                message.setUserName(username);
+                socketOut.println("Bonjour : " + message.getUnMessage());
+                socketOut.println("Écriver votre message");
+                //
                 while ((ligne = socketIn.readLine()) != null && !ligne.isEmpty()) {
-                    message.setUserName(ligne);
-                    // Demander une commande après avoir reçu le message
-                    socketOut.println("Utilisate : "  +  message.getUserName());
-
-                    if (ligne.equals("chat")) {
-                        // Sauvegarder le message
-                        message.ecrireUnMessage(ligne);
-                        listeMessages.add(message);
-                    } else if (ligne.equals("static")) {
+                    // Sauvegarder le message
+                    message.ecrireUnMessage(ligne);
+                    listeMessages.add(message);
+                    if (ligne.equals("static")) {
                         socketOut.println("La taille des messages : " + staticMessage());  // Afficher le nombre de messages
                     }
                 }
                 System.out.println("_____Message____ ");
+                System.out.println("Utilisateur : " + message.getUserName());
                 System.out.println(message.getUnMessage());
                 socketOut.println(listeMessages.toString());
                 System.out.println("____fin________");
                 // Fermer la connexion avec le client
                 sauvegarderMessage();
+                Clientsocket.close();
             }
 
 

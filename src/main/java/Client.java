@@ -18,6 +18,7 @@ public class Client {
             System.out.println("Please enter your name: ");
             socketOut.println(console.nextLine());
 
+
             socket.close();
 
 
