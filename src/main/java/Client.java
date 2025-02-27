@@ -1,31 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
-        // Créer une connexion
-        try {
-            Socket socket = new Socket("localhost", 8888);
-            // Obtenir les flux d'entrée et de sortie
-            PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            // Le server attend un commande
-            Scanner console = new Scanner(System.in);
-            System.out.println("Please enter your name: ");
-            socketOut.println(console.nextLine());
+        try (Socket socket = new Socket("localhost", 8888);
+             BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in))) {
 
-
-            socket.close();
-
-
-
+            String serverResponse;
+            while ((serverResponse = socketIn.readLine()) != null) {
+                System.out.println(serverResponse);
+                if (serverResponse.contains("Entrer votre user name")) {
+                    String username = userInput.readLine();
+                    socketOut.println(username);
+                } else if (serverResponse.contains("Écriver votre message")) {
+                    String message;
+                    while (!(message = userInput.readLine()).isEmpty()) {
+                        socketOut.println(message);
+                        if (message.equals("LOG")) {
+                            System.out.println(socketIn.readLine());
+                            System.out.println(socketIn.readLine());
+                        }
+                    }
+                    break;
+                }
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-
     }
 }
