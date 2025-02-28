@@ -25,12 +25,12 @@ public class Server {
                 // Les messages entrer par les clients
                 String ligne;
 
-                socketOut.println("Bienvenue sur chat");
-                socketOut.println("Nombre de messages reçus : " + staticMessage());
-                socketOut.println("Entrer votre user name");
-                String username = socketIn.readLine();
-                message.setUserName(username);
-                socketOut.println("Bonjour : " + message.getUserName());
+//                socketOut.println("Bienvenue sur chat");
+              socketOut.println("Nombre de messages reçus : " + staticMessage());
+//                socketOut.println("Entrer votre user name");
+//                String username = socketIn.readLine();
+//                message.setUserName(username);
+//                socketOut.println("Bonjour : " + message.getUserName());
 
                 socketOut.println("Écriver votre message");
                 while ((ligne = socketIn.readLine()) != null && !ligne.isEmpty()) {
@@ -50,7 +50,6 @@ public class Server {
                 sauvegarderMessage();
                 Clientsocket.close();
             }
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);
